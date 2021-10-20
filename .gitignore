@@ -1,0 +1,7 @@
+/node_modules/
+/public/build/
+/.vscode/
+
+.vscode-upload.json
+package-lock.json
+.DS_Store
