@@ -1,17 +1,21 @@
 <script lang="ts">
   import { authWithEmailAndPassword } from '../services/auth/authWithEmailAndPassword';
-  import { userStore } from '../stores/auth';
+  import SignoutButton from '../atoms/SignoutButton.svelte';
 
   let email: string;
+  let isLoading: boolean = false;
   let password: string;
 
   const submit = async () => {
-    const userFromFirebase = await authWithEmailAndPassword.signin(email, password);
+    isLoading = true;
+    await authWithEmailAndPassword.signin(email, password);
+    isLoading = false;
   }
 </script>
 
 <div>
   <h4>Signin</h4>
+    <SignoutButton />
     <div>
     <form on:submit|preventDefault={submit}>
       <label for="email">Email</label>
@@ -20,7 +24,7 @@
       <label for="password">Password</label>
       <input type="password" id="password" bind:value={password}/>
 
-      <button type="submit">Submit</button>
+      <button type="submit" disabled={isLoading}>Submit</button>
     </form>
   </div>
 </div>
