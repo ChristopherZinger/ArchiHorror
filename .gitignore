@@ -1,6 +1,7 @@
 /node_modules/
 /public/build/
 /.vscode/
+/src/functions/firebase/config.js
 
 .vscode-upload.json
 package-lock.json
