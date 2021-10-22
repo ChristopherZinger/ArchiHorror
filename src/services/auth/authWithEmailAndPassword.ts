@@ -1,12 +1,11 @@
 import '../firebase/createFirebaseApp';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, Auth, User } from 'firebase/auth';
 import { userStore } from '../../stores/auth';
+import { BaseAuth } from './baseAuth';
 
-class AuthWithEmailAndPassword {
-  auth: Auth;
-
+class AuthWithEmailAndPassword extends BaseAuth {
   constructor () {
-    this.auth = getAuth();
+    super();
   }
 
   public async createUserAndSignin (email: string, password: string): Promise<void> {
