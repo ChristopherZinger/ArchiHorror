@@ -1,11 +1,12 @@
 <script lang="ts">
   import { authWithEmailAndPassword } from '../services/auth/authWithEmailAndPassword';
+  import { userStore } from '../stores/auth';
 
   let email: string;
   let password: string;
 
   const submit = async () => {
-    const user = await authWithEmailAndPassword.signin(email, password);
+    const userFromFirebase = await authWithEmailAndPassword.signin(email, password);
   }
 </script>
 
