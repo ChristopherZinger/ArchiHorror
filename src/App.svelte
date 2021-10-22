@@ -1,7 +1,8 @@
 <script lang="ts">
   import { Router, Route } from 'svelte-navigator';
-  import Home from './pages/home.svelte';
-  import Login from './pages/login.svelte';
+  import Home from './pages/Home.svelte';
+  import Auth from './pages/Auth.svelte';
+
 </script>
 
 
@@ -11,7 +12,7 @@
   </Route>
 
   <Route path='/login'>
-    <Login />
+    <Auth />
   </Route>
 
   <Route path='/office-review'>
