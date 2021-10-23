@@ -1,7 +1,7 @@
 import '../firebase/createFirebaseApp';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, Auth, User } from 'firebase/auth';
-import { userStore } from '../../stores/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, User } from 'firebase/auth';
 import { BaseAuth } from './baseAuth';
+
 
 class AuthWithEmailAndPassword extends BaseAuth {
   constructor () {
@@ -31,27 +31,16 @@ class AuthWithEmailAndPassword extends BaseAuth {
   }
 
   public async signin (email: string, password: string): Promise<void> {
-    await this.signinAndSetUserInStore(email, password);
+    await this.signinWithFirebase(email, password);
   }
 
-  private async signinAndSetUserInStore (email: string, password: string): Promise<void> {
-    const user = await this.signinWithFirebase(email, password);
-    await this.updateUserStoreWithUserObjFromFirebase(user); 
-  }
-
-  private async signinWithFirebase (email: string, password: string): Promise<User>  {
+  private async signinWithFirebase (email: string, password: string): Promise<void>  {
     try {
-      const { user } = await signInWithEmailAndPassword(this.auth, email, password)
-      return user;
+      await signInWithEmailAndPassword(this.auth, email, password)
     } catch (error) {
         console.warn(error.code);
         console.warn(error.message);
     }
-  }
-
-  private updateUserStoreWithUserObjFromFirebase (userObjFromFirebase) {
-    console.log(userObjFromFirebase, userStore);
-    userStore.set(userObjFromFirebase);
   }
 }
 
