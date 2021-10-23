@@ -1,4 +1,4 @@
-import { signOut, getAuth } from '@firebase/auth'
+import { signOut, getAuth, User } from 'firebase/auth'
 import { userStore } from '../../stores/auth';
 
 export class BaseAuth {
@@ -11,5 +11,9 @@ export class BaseAuth {
   public async signout () {
     await signOut(this.auth);
     userStore.set(null);
+  }
+
+  public updateUserStoreWithUserObjFromBackend (user: User) {
+    userStore.set(user);
   }
 }
