@@ -1,4 +1,3 @@
-import '../firebase/createFirebaseApp';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, User } from 'firebase/auth';
 import { BaseAuth } from './baseAuth';
 
