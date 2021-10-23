@@ -1,0 +1,23 @@
+
+# Auth
+-done- [AU-01] - check if user is sign in on page reload
+[AU-02] - login with google/gmail
+[AU-03] - password reset email
+
+# Styles
+[ST-01] - install tailwind
+
+# DATA MODELING
+[DM-01] - add user permisions and roles
+
+-inprogress- [DM-02] - add and connect to office collection
+[DM-03] - CRUD for office collection
+
+[DM-04] - add and connect to salary_profile collection
+[DM-05] - CRUD for salary_profile
+
+[DM-06] - add and connect to review collection
+[DM-07] - CRUD for review collection
+
+# Errors
+[ER-01] - site cant be reached when refreshed not on '/' home
