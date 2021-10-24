@@ -1,26 +1,25 @@
-import { authWithEmailAndPassword } from './../auth/authWithEmailAndPassword';
 import firebase  from 'firebase/compat/app';
-import { getAuth, onAuthStateChanged, Auth }  from 'firebase/auth';
+import { getAuth, Auth }  from 'firebase/auth';
 import config from './config';
 
-class FirebaseInitializator {
+class FirebaseApp {
   auth: Auth;
+  app;
 
   constructor () {
-    this.initializeFirebaseApp();
+    console.log('[createFirebaseApp.ts] class FirebaseApp constructor.')
+    this.app = this.initializeFirebaseApp();
     this.auth = getAuth();
-    this.initializeFirebaseEventListeners();
   }
 
   private initializeFirebaseApp () {
-    firebase.initializeApp(config);
+    return firebase.initializeApp(config);
   }
 
-  initializeFirebaseEventListeners () {
-    onAuthStateChanged(this.auth, user => {
-      authWithEmailAndPassword.updateUserStoreWithUserObjFromBackend(user);
-    });   
+  public getApp () {
+    return this.app;
   }
 }
 
-new FirebaseInitializator();
+export const firebaseApp = new FirebaseApp();
+

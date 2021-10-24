@@ -10,8 +10,8 @@
 # DATA MODELING
 [DM-01] - add user permisions and roles
 
--inprogress- [DM-02] - add and connect to office collection
-[DM-03] - CRUD for office collection
+-done- [DM-02] - add and connect to office collection
+-in progress - [DM-03] - get data with pagination 
 
 [DM-04] - add and connect to salary_profile collection
 [DM-05] - CRUD for salary_profile

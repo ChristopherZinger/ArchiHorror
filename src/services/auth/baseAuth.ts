@@ -1,3 +1,4 @@
+import { firebaseApp } from '../firebase/createFirebaseApp';
 import { signOut, getAuth, User } from 'firebase/auth'
 import { userStore } from '../../stores/auth';
 
@@ -5,7 +6,8 @@ export class BaseAuth {
   auth;
 
   constructor () {
-    this.auth = getAuth();
+    const app = firebaseApp.getApp();
+    this.auth = getAuth(app);
   } 
 
   public async signout () {
