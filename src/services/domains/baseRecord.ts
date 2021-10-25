@@ -1,12 +1,23 @@
-import type { Firestore /*, doc, getDocs, collection */ } from 'firebase/firestore';
+import { 
+  collection,  
+  Firestore, 
+  limit,
+  getDocs, 
+  startAfter,
+  query, 
+  QueryConstraint,
+} from 'firebase/firestore';
 
 export abstract class BaseRecord<T> {
-  db: Firestore;
-  collectionName: string;
+  protected readonly db: Firestore;
+  protected readonly collectionName: string;
+  protected documentsPerPage: number;
+  protected lastLoadedDoc;
 
-  constructor (db: Firestore, collectionName: string) {
+  constructor (db: Firestore, collectionName: string, documentsPerPage=1) {
     this.db = db;
     this.collectionName = collectionName;
+    this.documentsPerPage = documentsPerPage;
   }
 
   abstract addDocument (document: T): Promise<T> 
@@ -17,11 +28,36 @@ export abstract class BaseRecord<T> {
 
   // abstract getDocumentById (id: string): Promise<T>
 
-  // public async getAllDocuments () {
-  //   try {
-  //     return await getDocs(collection(this.db, this.collectionName));
-  //   } catch (err) {
-  //     console.warn(err.code, ': ', err.message)
-  //   }
-  // }
+  public async getPaginatedDocuments(options: QueryConstraint[]=[limit(this.documentsPerPage)] ) {
+    const queryOptions: QueryConstraint[] = this.addStartCursorToQueryOptions(options);
+    return await this.getDocumentsAndSetLastLoadedDoc(queryOptions);
+  }
+
+  private addStartCursorToQueryOptions (options: QueryConstraint[]=[]) {
+    return this.lastLoadedDoc 
+      ? [...options , startAfter(this.lastLoadedDoc)]
+      : options; 
+  }
+
+  private async getDocumentsAndSetLastLoadedDoc (options: QueryConstraint[]=[]) {
+    const documentSnapshots = await this.getDocuments(options);
+    this.setLastLoadedDoc(documentSnapshots.docs[documentSnapshots.docs.length-1]);
+    return documentSnapshots;
+  }
+
+  public async getDocuments (options: QueryConstraint[]=[]) {
+    const q = query(collection(this.db, this.collectionName), ...options) 
+
+    // Other Methods exptect this try-catch block to be here. Don't remove it
+    try {
+      return await getDocs(q);    
+    } catch (err) {
+      //TODO handle errors
+      console.warn('[baseRecord.ts] error in function getDocuments : ', err.message)
+    }
+  }
+
+  private setLastLoadedDoc (lastLoadedDoc ) {
+    this.lastLoadedDoc = lastLoadedDoc;
+  }
 }

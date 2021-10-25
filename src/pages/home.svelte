@@ -1,6 +1,7 @@
 <script lang="ts">
   import Header from '../components/Header.svelte';
-  import AddOfficeForm from '../components/AddOfficeForm.svelte';
+  import AddOfficeForm from '../components/ArchitectureOfficeAddForm.svelte';
+  import ArchitectureOfficeList from '../components/ArchitectureOfficeList.svelte';
 </script>
 
 <Header />
@@ -11,6 +12,7 @@
     </div>
 
     <AddOfficeForm />
+    <ArchitectureOfficeList />
 
   </div>
 </main>
