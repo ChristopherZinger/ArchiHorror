@@ -11,7 +11,9 @@
 [DM-01] - add user permisions and roles
 
 -done- [DM-02] - add and connect to office collection
--in progress - [DM-03] - get data with pagination 
+-in progress - [DM-03] - get data with pagination.
+[DM-03-1] - only signed in users can add office or any data.
+[DM-03-2] - check if office with the same name is already in the city and prevent duplicated offices.
 
 [DM-04] - add and connect to salary_profile collection
 [DM-05] - CRUD for salary_profile
