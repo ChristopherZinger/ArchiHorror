@@ -3,6 +3,8 @@
 -done- [AU-01] - check if user is sign in on page reload
 [AU-02] - login with google/gmail
 [AU-03] - password reset email
+[AU-04] - create deployable firebase rules
+[AU-05] - add user record in users collection when new user signes up
 
 # Styles
 [ST-01] - install tailwind
@@ -11,9 +13,8 @@
 [DM-01] - add user permisions and roles
 
 -done- [DM-02] - add and connect to office collection
--in progress - [DM-03] - get data with pagination.
-[DM-03-1] - only signed in users can add office or any data.
-[DM-03-2] - check if office with the same name is already in the city and prevent duplicated offices.
+-done- [DM-03] - get data with pagination.
+[DM-03-1] - check if office with the same name is already in the city and prevent duplicated offices.
 
 [DM-04] - add and connect to salary_profile collection
 [DM-05] - CRUD for salary_profile
@@ -21,5 +22,10 @@
 [DM-06] - add and connect to review collection
 [DM-07] - CRUD for review collection
 
+[DM-08] - add user collection
+
+
 # Errors
 [ER-01] - site cant be reached when refreshed not on '/' home
+
+# General
