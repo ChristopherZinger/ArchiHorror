@@ -4,7 +4,7 @@
 [AU-02] - login with google/gmail
 [AU-03] - password reset email
 [AU-04] - create deployable firebase rules
-[AU-05] - add user record in users collection when new user signes up
+-done- [AU-05] - add user record in users collection when new user signes up
 
 # Styles
 [ST-01] - install tailwind

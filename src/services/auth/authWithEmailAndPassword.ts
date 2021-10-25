@@ -1,15 +1,24 @@
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, User } from 'firebase/auth';
-import { BaseAuth } from './baseAuth';
+import { AbstractBaseAuth } from './baseAuth';
+import { db } from '../firebase/connectToFirebaseDB';
+import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
 
 
-class AuthWithEmailAndPassword extends BaseAuth {
+class AuthWithEmailAndPassword extends AbstractBaseAuth {
+  db;
+  userCollection;
+
   constructor () {
     super();
+
+    this.db = db;
+    this.userCollection = 'users';
   }
 
   public async createUserAndSignin (email: string, password: string): Promise<void> {
     try {
-      await this.createUser(email, password);
+      const authUser = await this.createUser(email, password);
+      await this.addUserToUsersCollection(authUser.uid)
       await this.signin(email, password);
     } catch (error) {
       console.warn(error.code)
@@ -21,7 +30,7 @@ class AuthWithEmailAndPassword extends BaseAuth {
   private async createUser (email: string, password: string): Promise<User> {
     try {
       const { user } = await createUserWithEmailAndPassword(this.auth, email, password)
-      return user
+      return user;
     } catch (error) {
       console.warn(error.code)
       console.log(error.message);
@@ -29,8 +38,21 @@ class AuthWithEmailAndPassword extends BaseAuth {
     }
   }
 
+  private async addUserToUsersCollection (userId: string) {
+    try{
+      return await setDoc(doc(this.db, 'users', userId), {
+        roles: ['basic_user'],
+        createdAt: serverTimestamp(),
+      });
+    } catch (err) {
+
+    }
+  }
+
   public async signin (email: string, password: string): Promise<void> {
-    await this.signinWithFirebase(email, password);
+    const user = await this.signinWithFirebase(email, password);
+    // TODO add cloud function that will check if user has a record in users collection,
+    // TODO and if not adds it.
   }
 
   private async signinWithFirebase (email: string, password: string): Promise<void>  {
