@@ -1,23 +1,21 @@
 import { db } from '../firebase/connectToFirebaseDB';
-import { collection, addDoc, doc, Firestore, getDoc, setDoc, Timestamp } from 'firebase/firestore';
+import { doc, Firestore, setDoc} from 'firebase/firestore';
 import { BaseRecord } from './baseRecord';
-import { getAuth } from 'firebase/auth';
 import slugify from 'slugify';
+import { FieldCreationError } from './customErrors'
 
-class FieldCreationError extends Error {};
 
-
-export interface ArchitectureOfficeRecord {
+export interface NewOfficeUserInput {
   name: string;
   city: string
 }
 
-class ArchitectureOffice extends BaseRecord<ArchitectureOfficeRecord> {
+class ArchitectureOffice extends BaseRecord<NewOfficeUserInput> {
   constructor (db: Firestore ) {
     super(db, 'architecture-offices');
   }
 
-  public async addDocument (document: ArchitectureOfficeRecord) {
+  public async addDocument (document: NewOfficeUserInput) {
     const office = this.populateDocumentWithRequiredFields(document);
 
     if (office instanceof FieldCreationError) {
@@ -52,20 +50,6 @@ class ArchitectureOffice extends BaseRecord<ArchitectureOfficeRecord> {
       createdAt,
       createdBy,
     }
-  }
-
-  private addCreatedAtField () {
-    return  Timestamp.fromDate(new Date())
-  }
-
-  private addCreatedByField () {
-    const userID  = getAuth()?.currentUser?.uid;
-
-    if (!userID) {
-      return new FieldCreationError('Can\'t populate userID field. User is not logged in.');
-    }
-
-    return userID;
   }
 
   private addSlugField (office) {

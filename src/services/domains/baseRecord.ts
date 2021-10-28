@@ -1,14 +1,19 @@
+import { getAuth } from 'firebase/auth';
 import { 
   collection,  
+  doc,
   DocumentData,
   DocumentReference,
   Firestore, 
-  limit,
+  getDoc,
   getDocs, 
+  limit,
   startAfter,
+  Timestamp,
   query, 
   QueryConstraint,
 } from 'firebase/firestore';
+import { FieldCreationError } from './customErrors'
 
 export abstract class BaseRecord<T> {
   protected readonly db: Firestore;
@@ -24,11 +29,33 @@ export abstract class BaseRecord<T> {
 
   abstract addDocument (record: T): Promise<DocumentReference<DocumentData>>
 
+  private addCreatedAtField () {
+    return  Timestamp.fromDate(new Date())
+  }
+
+  private addCreatedByField () {
+    const userID  = getAuth()?.currentUser?.uid;
+
+    if (!userID) {
+      return new FieldCreationError('Can\'t populate userID field. User is not logged in.');
+    }
+
+    return userID;
+  }
   // abstract removeDocument (id: string): Promise<T>
 
   // abstract updateDocument (id: string, document: T): Promise<T>
 
-  // abstract getDocumentById (id: string): Promise<T>
+  public async getDocumentById (id: string) {
+    const collectionRef = collection(this.db, this.collectionName);
+    const docRef = doc(this.db, this.collectionName, id);
+    try{
+      const document = await getDoc(docRef);
+      return document.data();
+    } catch (err) {
+      return Error(err.message);
+    }
+  }
 
   public async getPaginatedDocuments(options: QueryConstraint[]=[limit(this.documentsPerPage)] ) {
     const queryOptions: QueryConstraint[] = this.addStartCursorToQueryOptions(options);
