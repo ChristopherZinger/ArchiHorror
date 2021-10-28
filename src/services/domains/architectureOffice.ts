@@ -14,7 +14,7 @@ class ArchitectureOffice extends BaseRecord<ArchitectureOfficeRecord> {
     super(db, 'architecture-offices');
   }
 
-  public async create (document: ArchitectureOfficeRecord) {
+  public async addDocument (document: ArchitectureOfficeRecord) {
     const doc = this.populateDocumentWithRequiredFields(document);
 
     if (!doc) {

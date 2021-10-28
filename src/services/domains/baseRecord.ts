@@ -1,5 +1,7 @@
 import { 
   collection,  
+  DocumentData,
+  DocumentReference,
   Firestore, 
   limit,
   getDocs, 
@@ -20,7 +22,7 @@ export abstract class BaseRecord<T> {
     this.documentsPerPage = documentsPerPage;
   }
 
-  abstract addDocument (document: T): Promise<T> 
+  abstract addDocument (record: T): Promise<DocumentReference<DocumentData>>
 
   // abstract removeDocument (id: string): Promise<T>
 
