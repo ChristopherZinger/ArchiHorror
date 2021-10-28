@@ -8,5 +8,5 @@
 <Router>
   <Route path='/' component={Home} />
   <Route path='/login' component={Auth} />
-  <Route path='/office/:officeId' component={OfficeDetail} />
+  <Route path='/office/:officeSlug' component={OfficeDetail} />
 </Router>

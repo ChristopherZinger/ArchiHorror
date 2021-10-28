@@ -1,5 +1,6 @@
 <script>
   import { onMount } from 'svelte';
+  import { Link } from 'svelte-navigator';
   import { architectureOffice } from '../services/domains/architectureOffice';
 
   let offices = [];
@@ -27,7 +28,7 @@
   <ul>
     {#if offices.length > 0}
       {#each offices as office}
-        <li>{office.name}</li>
+        <li><Link to={`/office/${office.slug}`}>{office.name}</Link></li>
       {/each}
     {/if}
   </ul>
