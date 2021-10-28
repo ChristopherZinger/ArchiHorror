@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { architectureOffice } from '../services/domains/architectureOffice';
 
   let office = {

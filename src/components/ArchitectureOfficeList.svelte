@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { onMount } from 'svelte';
   import { Link } from 'svelte-navigator';
   import { architectureOffice } from '../services/domains/architectureOffice';
