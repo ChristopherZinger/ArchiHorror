@@ -4,6 +4,9 @@ import { BaseRecord } from './baseRecord';
 import { getAuth } from 'firebase/auth';
 import slugify from 'slugify';
 
+class FieldCreationError extends Error {};
+
+
 export interface ArchitectureOfficeRecord {
   name: string;
   city: string
@@ -15,14 +18,14 @@ class ArchitectureOffice extends BaseRecord<ArchitectureOfficeRecord> {
   }
 
   public async addDocument (document: ArchitectureOfficeRecord) {
-    const doc = this.populateDocumentWithRequiredFields(document);
+    const office = this.populateDocumentWithRequiredFields(document);
 
-    if (!doc) {
-      throw new Error('Could not create new office.');
+    if (office instanceof FieldCreationError) {
+      return office;
     }
 
     try {
-      return await addDoc(collection( this.db, this.collectionName ), doc);
+      return await setDoc(doc(this.db, this.collectionName, office.slug), office);
     } catch (err) {
       console.error(err);
       return err;
@@ -31,41 +34,47 @@ class ArchitectureOffice extends BaseRecord<ArchitectureOfficeRecord> {
 
   private populateDocumentWithRequiredFields (office) {
     //TODO in the future those field should be added with cloud function
-    try {
-      return {
-        ...document,
-        ...this.addCreatedAtField(),
-        ...this.addCreatorField(),
-        ...this.addSlugField(office),
-      }
-    } catch (err) {
-      console.warn(err.message);
-      return;
+    const createdAt = this.addCreatedAtField();
+    const createdBy = this.addCreatedByField();
+    const slug = this.addSlugField(office);
+
+    if (createdBy instanceof FieldCreationError) {
+      return createdBy;
+    }
+
+    if (slug instanceof FieldCreationError) {
+      return slug;
+    }
+
+    return {
+      ...office,
+      slug,
+      createdAt,
+      createdBy,
     }
   }
 
   private addCreatedAtField () {
-    return {
-      createdAt: Timestamp.fromDate(new Date())
-    }
+    return  Timestamp.fromDate(new Date())
   }
 
-  private addCreatorField () {
+  private addCreatedByField () {
     const userID  = getAuth()?.currentUser?.uid;
 
     if (!userID) {
-      throw new Error('You have to be logged in to add an office.');
+      return new FieldCreationError('Can\'t populate userID field. User is not logged in.');
     }
 
-    return { createdBy: userID}
+    return userID;
   }
 
   private addSlugField (office) {
-    const slug = slugify(office.name + '--' + office.city, {
-      lower: true,
-      strict: true,
-    })
-    return { slug }
+    if (!office.city || !office.name) {
+      return new FieldCreationError('Office must contain following fields: city, name,')
+    }
+    const name = slugify(office.name, {lower: true})
+    const city = slugify(office.city, {lower: true})
+    return `${name}__${city}`;
   }
 }
 
