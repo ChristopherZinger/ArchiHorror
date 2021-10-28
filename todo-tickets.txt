@@ -14,7 +14,9 @@
 
 -done- [DM-02] - add and connect to office collection
 -done- [DM-03] - get data with pagination.
-[DM-03-1] - check if office with the same name is already in the city and prevent duplicated offices.
+-inprogress- [DM-03-1] - check if office with the same name is already in the city and prevent duplicated offices.
+[DM-03-2] - add createdBy field to architectureOffice
+[DM-04-3] - add isActive field to architectureOffice
 
 [DM-04] - add and connect to salary_profile collection
 [DM-05] - CRUD for salary_profile
@@ -22,7 +24,8 @@
 [DM-06] - add and connect to review collection
 [DM-07] - CRUD for review collection
 
-[DM-08] - add user collection
+-done- [DM-08] - add user collection
+[DM-08-01] - add offices 
 
 
 # Errors
