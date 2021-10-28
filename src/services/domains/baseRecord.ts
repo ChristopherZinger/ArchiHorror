@@ -27,8 +27,6 @@ export abstract class BaseRecord<T> {
     this.documentsPerPage = documentsPerPage;
   }
 
-  abstract addDocument (record: T): Promise<DocumentReference<DocumentData>>
-
   protected addCreatedAtField () {
     return  Timestamp.fromDate(new Date())
   }
