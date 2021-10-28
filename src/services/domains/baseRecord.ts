@@ -29,11 +29,11 @@ export abstract class BaseRecord<T> {
 
   abstract addDocument (record: T): Promise<DocumentReference<DocumentData>>
 
-  private addCreatedAtField () {
+  protected addCreatedAtField () {
     return  Timestamp.fromDate(new Date())
   }
 
-  private addCreatedByField () {
+  protected addCreatedByField () {
     const userID  = getAuth()?.currentUser?.uid;
 
     if (!userID) {
