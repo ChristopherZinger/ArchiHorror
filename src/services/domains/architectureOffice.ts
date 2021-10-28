@@ -1,5 +1,5 @@
 import { db } from '../firebase/connectToFirebaseDB';
-import { collection, addDoc, doc, Firestore, getDoc, setDoc } from 'firebase/firestore';
+import { collection, addDoc, doc, Firestore, getDoc, setDoc, Timestamp } from 'firebase/firestore';
 import { BaseRecord } from './baseRecord';
 import { getAuth } from 'firebase/auth';
 import slugify from 'slugify';
@@ -30,15 +30,23 @@ class ArchitectureOffice extends BaseRecord<ArchitectureOfficeRecord> {
   }
 
   private populateDocumentWithRequiredFields (office) {
+    //TODO in the future those field should be added with cloud function
     try {
       return {
         ...document,
+        ...this.addCreatedAtField(),
         ...this.addCreatorField(),
         ...this.addSlugField(office),
       }
     } catch (err) {
       console.warn(err.message);
       return;
+    }
+  }
+
+  private addCreatedAtField () {
+    return {
+      createdAt: Timestamp.fromDate(new Date())
     }
   }
 
