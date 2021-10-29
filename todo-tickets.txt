@@ -21,8 +21,8 @@
 [DM-04] - add and connect to salary_profile collection
 [DM-05] - CRUD for salary_profile
 
--inprogress-[DM-06] - add and connect to review collection
-[DM-07] - CRUD for review collection
+-done-[DM-06] - add and connect to review collection
+[DM-06-1] display reivews in office detail page
 
 -done- [DM-08] - add user collection
 [DM-08-01] - add offices 
