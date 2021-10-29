@@ -1,5 +1,5 @@
 
 export const collections = {
-  office: 'architecture-office',
+  office: 'architecture-offices',
   review: 'review'
 }
