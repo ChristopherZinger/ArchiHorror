@@ -1,13 +1,11 @@
 <script lang="ts">
-  import { BaseAuth } from '../services/auth/baseAuth';
-
-  const baseAuth = new BaseAuth();
+  import { authWithEmailAndPassword } from '../services/auth/authWithEmailAndPassword';
 
   let isLoading: boolean = false;
 
   const signout = async () => {
     isLoading = true;
-    await baseAuth.signout()
+    await authWithEmailAndPassword.signout()
     isLoading = false;
   }
   

@@ -1,37 +1,48 @@
-<script>
+<script lang="ts">
   import { onMount } from 'svelte';
-  import { architectureOffice } from '../services/domains/architectureOffice';
+  import { Link } from 'svelte-navigator';
+  import { getPagination, PaginationRangeError } from '../services/domains/helpers/getPaginatedDocuments';
+  import type { DocumentData } from 'firebase/firestore';
+  import { collections } from '../services/domains/globalConstants';
 
-  let offices = [];
+  let offices: DocumentData[] = [];
   let allDocumentsLoaded = false;
+  let isLoading = false;
+  const getMoreDocuments = getPagination(collections.office);
 
-  const loadMoreDocuments = async () => {
-    if (allDocumentsLoaded) return;
-    const documentSnapshots = await architectureOffice.getPaginatedDocuments();
-    const updatedListOfOffices = [...offices];
-    documentSnapshots.forEach(i => updatedListOfOffices.push(i.data()));
-    offices = updatedListOfOffices;
-
-    if (!documentSnapshots.docs[documentSnapshots.docs.length-1]) {
-      allDocumentsLoaded = true;
+  const loadMoreOffices = async () => {
+    isLoading = true;
+    try {
+      const newoffices = await getMoreDocuments(); 
+      offices = [...offices, ...newoffices];
+    } catch (err) {
+      if (err instanceof PaginationRangeError) {
+        allDocumentsLoaded = true;
+      }
+      console.error(err.message); 
     }
+    isLoading = false;
   }
-  
+
   onMount(async () => {
-    await loadMoreDocuments();
+    await loadMoreOffices();
   })
+
 </script>
 
 <div>
   <bold>List Of Architecture offices</bold>
   <ul>
-    {#if offices.length > 0}
+    {#if offices?.length > 0}
       {#each offices as office}
-        <li>{office.name}</li>
+        <li><Link to={`/office/${office.slug}`}>{office.name}</Link></li>
       {/each}
     {/if}
+    {#if isLoading} 
+      <li>... loading.</li>
+    {/if}
   </ul>
-  <button on:click={loadMoreDocuments} disabled={allDocumentsLoaded}>
+  <button on:click={loadMoreOffices} disabled={allDocumentsLoaded || isLoading}>
     { allDocumentsLoaded ? 'No more documents' : 'Load More Documents'}
   </button>
 </div>

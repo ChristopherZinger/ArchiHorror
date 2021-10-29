@@ -3,6 +3,8 @@
 -done- [AU-01] - check if user is sign in on page reload
 [AU-02] - login with google/gmail
 [AU-03] - password reset email
+[AU-04] - create deployable firebase rules
+-done- [AU-05] - add user record in users collection when new user signes up
 
 # Styles
 [ST-01] - install tailwind
@@ -12,14 +14,21 @@
 
 -done- [DM-02] - add and connect to office collection
 -done- [DM-03] - get data with pagination.
-[DM-03-1] - only signed in users can add office or any data.
--inprogress- [DM-03-2] - check if office with the same name is already in the city and prevent duplicated offices.
+[DM-03-1] - check if office with the same name is already in the city and prevent duplicated offices. - cloud function??
+-done- [DM-03-2] - add createdBy field to architectureOffice
+[DM-04-3] - add isActive field to architectureOffice
 
 [DM-04] - add and connect to salary_profile collection
 [DM-05] - CRUD for salary_profile
 
-[DM-06] - add and connect to review collection
-[DM-07] - CRUD for review collection
+-done-[DM-06] - add and connect to review collection
+[DM-06-1] display reivews in office detail page
+
+-done- [DM-08] - add user collection
+[DM-08-01] - add offices 
+
 
 # Errors
 [ER-01] - site cant be reached when refreshed not on '/' home
+
+# General
