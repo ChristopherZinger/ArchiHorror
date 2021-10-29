@@ -1,13 +1,13 @@
 <script lang="ts">
-  import { architectureOffice } from '../services/domains/architectureOffice';
+  import { addOffice } from '../services/domains/offices/addOffice';
 
   let office = {
     name: '',
     city: ''
   }
 
-  const submit = () => {
-    architectureOffice.addDocument(office);
+  const submit = async () => {
+    const newoffice = await addOffice(office);
   }
 </script>
 
