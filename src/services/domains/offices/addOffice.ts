@@ -43,12 +43,16 @@ const populateDocumentWithRequiredFields = (office: NewOfficeUserInput): OfficeW
     return createdByField;
   }
 
+  if (slugField instanceof FieldCreationError) {
+    return slugField;
+  }
+
   return {...office, ...createdAtField, ...createdByField, ...slugField};
 }
 
 const addSlugField = (office: NewOfficeUserInput) => {
   if (!office.city || !office.name) {
-    throw new FieldCreationError('Office must contain following fields: city, name,')
+    return new FieldCreationError('Office must contain following fields: city, name,')
   }
 
   const name = slugify(office.name, {lower: true})
