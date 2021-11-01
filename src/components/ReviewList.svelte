@@ -1,14 +1,28 @@
 <script lang="ts">
+import type { DocumentData } from '@firebase/firestore';
+
   import { onMount } from 'svelte';
-import { getAllReviewsForTheOffice } from '../services/domains/reviews/getAllReviewsForOffice';
-  import { review } from '../services/domains/review';
+  import { getAllReviewsForTheOffice } from '../services/domains/reviews/getAllReviewsForOffice';
 
   export let officeId: string;
 
-  let reviews: any[];
+  let reviews: DocumentData[];
+  let error: string;
+  let isLoading = false;
+
+  const getReviews = async () => {
+    isLoading = true
+    const data = await getAllReviewsForTheOffice(officeId);
+    if (data instanceof Error) {
+
+    } else {
+      reviews = data;
+    } 
+    isLoading = false;
+  }
 
   onMount(async () => {
-    reviews = await getAllReviewsForTheOffice(officeId)
+    getReviews();
   })
 </script>
 
@@ -21,3 +35,17 @@ import { getAllReviewsForTheOffice } from '../services/domains/reviews/getAllRev
   {/each}
 </ul>
 {/if}
+
+{#if isLoading}
+  <p>... loading</p>
+{/if}
+
+{#if error}
+<p class="error">{error}</p> 
+{/if}
+
+<style>
+  .error {
+    color: red;
+  }
+</style>
