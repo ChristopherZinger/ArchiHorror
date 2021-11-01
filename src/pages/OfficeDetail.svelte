@@ -4,7 +4,8 @@
   import Header from '../components/Header.svelte';
   import ReviewAddForm from '../components/ReviewAddForm.svelte';
   import ReviewList from '../components/ReviewList.svelte';
-import { getOfficeById } from '../services/domains/offices/getDocumentById';
+  import SurveyAddForm from '../components/SurveyAddForm.svelte';
+  import { getOfficeById } from '../services/domains/offices/getDocumentById';
 
   export let officeSlug: string;
 
@@ -26,6 +27,7 @@ import { getOfficeById } from '../services/domains/offices/getDocumentById';
 <div>
   {#if office}
     <h1>Office Detail Page: {office.name} in {office.city} </h1>
+    <SurveyAddForm officeId={office.slug} />
     <ReviewAddForm officeId={office.slug} />
     <ReviewList officeId={office.slug} />
   {/if}
