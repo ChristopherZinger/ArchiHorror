@@ -1,5 +1,6 @@
 
 export const collections = {
   office: 'architecture-offices',
-  review: 'reviews'
+  review: 'reviews',
+  survey: 'surveys',
 }
