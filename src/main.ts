@@ -1,6 +1,5 @@
 import './services/firebase/createFirebaseApp';
 import './services/firebase/handleFirebaseEvents';
-import './services/firebase/connectToFirebaseDB';
 import App from './App.svelte';
 
 const app = new App({
