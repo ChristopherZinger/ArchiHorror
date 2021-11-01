@@ -1,7 +1,9 @@
 import { collections } from './../globalConstants';
-import { db } from './../../firebase/connectToFirebaseDB';
-import { getDoc, doc } from 'firebase/firestore';
+import { getDoc, doc, getFirestore } from 'firebase/firestore';
+
+const db = getFirestore()
 
 export const getOfficeById = async (id: string) => {
-  return await getDoc(doc(db, `${collections.office}/${id}`));
+  const snapshot = await getDoc(doc(db, `${collections.office}/${id}`));
+  return snapshot.data();
 }

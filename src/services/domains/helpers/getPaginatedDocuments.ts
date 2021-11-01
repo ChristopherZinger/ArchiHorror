@@ -1,7 +1,7 @@
 import { convertSnapshotToListOfDocuments } from './convertQuerySnapshotToListOfDocuments';
-import { collections } from './../globalConstants';
-import { limit,  startAfter, collection, query, getDocs, QueryConstraint} from 'firebase/firestore';
-import { db } from '../../firebase/connectToFirebaseDB'
+import { limit, startAfter, collection, query, getDocs, QueryConstraint, getFirestore } from 'firebase/firestore';
+
+const db = getFirestore();
 
 export class PaginationRangeError extends Error {}
 

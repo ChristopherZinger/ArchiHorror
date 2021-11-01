@@ -1,21 +1,22 @@
 import { collections } from './../globalConstants';
-import { db } from './../../firebase/connectToFirebaseDB';
-import {query, collection, getDocs, QuerySnapshot, DocumentData } from 'firebase/firestore';
+import { query, collection, getDocs, QuerySnapshot, DocumentData, getFirestore } from 'firebase/firestore';
 
+
+const db = getFirestore();
 
 export const getAllReviewsForTheOffice = async (officeId: string) => {
-      const querySnapshot = await getReviewsSnapshot(officeId);
-      return convertSnapshotToListOfReviews(querySnapshot);
+  try {
+    const querySnapshot = await getReviewsSnapshot(officeId);
+    return convertSnapshotToListOfReviews(querySnapshot);
+  } catch (err) {
+    return new Error(err.message);
+  }
 }
 
 const getReviewsSnapshot = async (officeId: string) => {
-    const q = query(collection(db, `${collections.office}/${officeId}/${collections.review}`));
-    try {
-      return await getDocs(q);
-    } catch (err) {
-      console.error(err.message);
-      return err;
-    }
+  const collectionPath =  `${collections.office}/${officeId}/${collections.review}`;
+  const q = query(collection(db, `${collections.office}/${officeId}/${collections.review}`));
+  return await getDocs(q);
 }
 
 const convertSnapshotToListOfReviews = (querySnapshot: QuerySnapshot<DocumentData>) => {

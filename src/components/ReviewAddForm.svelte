@@ -1,12 +1,12 @@
 <script lang="ts">
-  import { review } from '../services/domains/review';
+  import { addOfficeReview } from '../services/domains/reviews/addOfficeReview';
 
   export let officeId: string;
 
   let textReview = '';
 
   const submit = async () => {
-    const newreview = await review.addOfficeReview({text: textReview}, officeId);
+    const newreview = await addOfficeReview({text: textReview}, officeId);
     console.log('new review: ', newreview);
   }
 </script>

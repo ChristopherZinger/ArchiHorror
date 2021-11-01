@@ -1,10 +1,10 @@
 import { collections } from './../globalConstants';
-import { db } from './../../firebase/connectToFirebaseDB';
 import slugify from 'slugify';
-import { setDoc, doc, collection} from 'firebase/firestore';
+import { setDoc, doc, getFirestore } from 'firebase/firestore';
 import { addCreatedAtField, addCreatedByField } from '../helpers/addFields';
 import { FieldCreationError } from '../customErrors'
 
+const db = getFirestore();
 
 export interface NewOfficeUserInput {
   name: string
