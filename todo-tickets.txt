@@ -30,7 +30,8 @@
 
 
 # Errors
-[ER-01] - site cant be reached when refreshed not on '/' home
+-done- [ER-01] - site cant be reached when refreshed not on '/' home
+-done- [ERR-02] create folder with custom errors and use them in existing files.
 
 # Functions
 [FU-01] install firestore functions
