@@ -1,8 +1,12 @@
-import { db } from './../../firebase/connectToFirebaseDB';
-import type { NewReviewUserInput } from '../review';
 import { addCreatedAtField, addCreatedByField } from '../helpers/addFields';
 import { collections } from '../globalConstants';
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, getFirestore } from 'firebase/firestore';
+
+const db = getFirestore()
+
+interface NewReviewUserInput {
+  text: string
+}
 
 export const addOfficeReview = async (review: NewReviewUserInput, officeId: string) => {
     const reviewWithRequiredFields = populateDocumentWithRequiredFields(review);
