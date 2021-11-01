@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { AuthError } from '../constants/errors/authErrors';
+  import { AuthError, AUTH_ERRORS } from '../constants/errors/authErrors';
   import { FieldCreationError } from '../constants/errors/fieldcreationErrors';
   import { addOffice } from '../services/domains/offices/addOffice';
 
@@ -8,8 +8,7 @@
     city: ''
   }
 
-  let error;
-
+  let error: string;
   const submit = async () => {
     const newoffice = await addOffice(office);
     if (newoffice instanceof FieldCreationError) {
@@ -18,6 +17,10 @@
 
     if (newoffice instanceof AuthError) {
       error = newoffice.message
+
+      if (newoffice.name === AUTH_ERRORS.IS_NOT_LOGGED_IN) {
+        error = 'You need to be logged in to create a office.' 
+      }
     }
   }
 </script>
@@ -33,4 +36,9 @@
 
     <button type="submit">Submit new office : {office.name}</button>
   </form>
+  {#if error}
+    <div>
+      {error}
+    </div>
+  {/if}
 </div>
