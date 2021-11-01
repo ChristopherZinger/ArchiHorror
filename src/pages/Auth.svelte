@@ -3,7 +3,7 @@
   import Signin from '../components/Signin.svelte';
   import Register from '../components/Register.svelte';
 
-  let currentTab = 'foo';
+  let currentTab = 'signin';
 
 </script>
 
@@ -11,15 +11,21 @@
 <Header />
 <main>
   <h1>Create new User</h1>
-  <ul>
-    <li on:click={() =>{ currentTab = 'foo'; console.log(currentTab)}}>Foo</li>
-    <li on:click={() => { currentTab = 'boo'; console.log(currentTab)}}>Boo</li>
+  <ul class="tabs">
+    <li on:click={() =>{ currentTab = 'signin'}}>SignIn</li>
+    <li on:click={() => { currentTab = 'signup'}}>SignUp</li>
   </ul>
 
-  {#if currentTab === 'boo'}
+  {#if currentTab === 'signup'}
     <Register />
-  {:else if currentTab === 'foo'}
+  {:else if currentTab === 'signin'}
     <Signin />
   {/if}
-
 </main>
+
+
+<style>
+  .tabs > li {
+    cursor: pointer;
+  }
+</style>
