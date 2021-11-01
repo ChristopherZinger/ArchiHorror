@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { AuthError } from '../constants/errors/authErrors';
+  import { FieldCreationError } from '../constants/errors/fieldcreationErrors';
   import { addOffice } from '../services/domains/offices/addOffice';
 
   let office = {
@@ -6,8 +8,17 @@
     city: ''
   }
 
+  let error;
+
   const submit = async () => {
     const newoffice = await addOffice(office);
+    if (newoffice instanceof FieldCreationError) {
+      error = newoffice.message;
+    }
+
+    if (newoffice instanceof AuthError) {
+      error = newoffice.message
+    }
   }
 </script>
 

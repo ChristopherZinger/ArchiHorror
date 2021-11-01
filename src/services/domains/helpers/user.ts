@@ -1,10 +1,10 @@
+import { AuthError } from '../../../constants/errors/authErrors';
 import { getAuth } from 'firebase/auth';
-import { FieldCreationError } from '../customErrors'
 
-export const getUserId = () => {
+export const getUserId = (): string | AuthError => {
   const userID  = getAuth()?.currentUser?.uid;
   if (!userID) {
-    return new FieldCreationError('Can\'t populate userID field. User is not logged in.');
+    return new AuthError('You are not logged in.');
   }
   return userID;
 }
