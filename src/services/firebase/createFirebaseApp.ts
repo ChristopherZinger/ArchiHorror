@@ -7,7 +7,6 @@ class FirebaseApp {
   app;
 
   constructor () {
-    console.log('[createFirebaseApp.ts] class FirebaseApp constructor.')
     this.app = this.initializeFirebaseApp();
     this.auth = getAuth();
   }
