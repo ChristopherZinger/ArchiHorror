@@ -1,8 +1,8 @@
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, User } from 'firebase/auth';
 import { AbstractBaseAuth } from './baseAuth';
-import { db } from '../firebase/connectToFirebaseDB';
-import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
+import { doc, setDoc, serverTimestamp, getFirestore } from 'firebase/firestore';
 
+const db = getFirestore();
 
 class AuthWithEmailAndPassword extends AbstractBaseAuth {
   db;
@@ -21,8 +21,8 @@ class AuthWithEmailAndPassword extends AbstractBaseAuth {
       await this.addUserToUsersCollection(authUser.uid)
       await this.signin(email, password);
     } catch (error) {
-      console.warn(error.code)
-      console.warn(error.message)
+      console.error(error.code)
+      console.error(error.message)
       return null;
     }
   }
@@ -32,8 +32,7 @@ class AuthWithEmailAndPassword extends AbstractBaseAuth {
       const { user } = await createUserWithEmailAndPassword(this.auth, email, password)
       return user;
     } catch (error) {
-      console.warn(error.code)
-      console.log(error.message);
+      console.error(error.message);
       return null;
     }
   }
@@ -59,8 +58,8 @@ class AuthWithEmailAndPassword extends AbstractBaseAuth {
     try {
       await signInWithEmailAndPassword(this.auth, email, password)
     } catch (error) {
-        console.warn(error.code);
-        console.warn(error.message);
+        console.error(error.code);
+        console.error(error.message);
     }
   }
 }
