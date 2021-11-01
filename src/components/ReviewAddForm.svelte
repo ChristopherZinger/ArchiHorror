@@ -1,13 +1,22 @@
 <script lang="ts">
+import { AuthError, AUTH_ERRORS } from '../constants/errors/authErrors';
+
   import { addOfficeReview } from '../services/domains/reviews/addOfficeReview';
 
   export let officeId: string;
 
   let textReview = '';
+  let error: string;
 
   const submit = async () => {
     const newreview = await addOfficeReview({text: textReview}, officeId);
-    console.log('new review: ', newreview);
+    if (newreview instanceof AuthError) {
+      error = newreview.message;
+
+      if (newreview.message === AUTH_ERRORS.IS_NOT_LOGGED_IN) {
+        error = 'You need to be logged in.';
+      }
+    }
   }
 </script>
 
@@ -20,6 +29,9 @@
 
     <button type="submit">Submit Review</button>
   </form>
+  {#if error}
+  <div>{error}</div>
+  {/if}
 </div>
 
 <style>
