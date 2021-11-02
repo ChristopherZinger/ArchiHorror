@@ -1,6 +1,6 @@
 <script lang="ts">
   import { AuthError, AUTH_ERRORS } from '../constants/errors/authErrors';
-  import { FieldCreationError } from '../constants/errors/fieldcreationErrors';
+  import { FieldCreationError } from '../constants/errors/fieldCreateErrors';
   import { addOffice } from '../services/domains/offices/addOffice';
 
   let office = {

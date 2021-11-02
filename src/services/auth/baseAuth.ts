@@ -6,8 +6,8 @@ export abstract class AbstractBaseAuth {
   auth;
 
   constructor () {
-    const app = firebaseApp.getApp();
-    this.auth = getAuth(app);
+    // const app = firebaseApp.getApp();
+    this.auth = getAuth();
   } 
 
   public abstract createUserAndSignin (email: string, password: string)

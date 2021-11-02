@@ -4,7 +4,7 @@ import { collections } from './../globalConstants';
 import slugify from 'slugify';
 import { setDoc, doc, getFirestore, Timestamp } from 'firebase/firestore';
 import { addCreatedAtField, addCreatedByField } from '../helpers/addFields';
-import { FieldCreationError } from '../../../constants/errors/fieldCreationErrors'
+import { FieldCreationError } from '../../../constants/errors/fieldCreateErrors'
 
 const db = getFirestore();
 
