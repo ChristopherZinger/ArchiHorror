@@ -1,12 +1,11 @@
-import { firebaseApp } from '../firebase/createFirebaseApp';
 import { signOut, getAuth, User } from 'firebase/auth'
 import { userStore } from '../../stores/auth';
+
 
 export abstract class AbstractBaseAuth {
   auth;
 
   constructor () {
-    // const app = firebaseApp.getApp();
     this.auth = getAuth();
   } 
 
