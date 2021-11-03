@@ -40,7 +40,7 @@
 -done- [ERR-02] create folder with custom errors and use them in existing files.
 
 # FIRESTORE FUNCTIONS 
-[FU-01] install firestore functions
+[FU-01] install firestore, auth, functions emulators
 [FU-02] use function emulator localy
 
 # GENERAL 

@@ -2,6 +2,7 @@
 /public/build/
 /.vscode/
 /src/services/firebase/config.js
+*-debug.log
 
 .vscode-upload.json
 package-lock.json
