@@ -34,7 +34,8 @@
 
 // USER COLLECTION
 -done- [DM-08] - add user collection
--done- [DM-08-01] - add offices 
+-done- [DM-08-1] - add offices 
+-done- [DM-08-2] - add user doc with firestore functions on auth user create
 
 // SURVEY COLLECTION
 [DM-09] add survey doc -> functions and form and errors;
