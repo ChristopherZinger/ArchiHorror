@@ -2,6 +2,7 @@
   import Header from '../components/Header.svelte';
   import AddOfficeForm from '../components/ArchitectureOfficeAddForm.svelte';
   import ArchitectureOfficeList from '../components/ArchitectureOfficeList.svelte';
+  import PopulateDb from '../components/PopulateDb.svelte';
 </script>
 
 <Header />
@@ -11,6 +12,7 @@
       <h1>DOES WORKING IN YOUR ARCHITECTURE OFFICE FEELS LIKE A NIGHTMARE?</h1>
     </div>
 
+    <PopulateDb />
     <AddOfficeForm />
     <ArchitectureOfficeList />
 

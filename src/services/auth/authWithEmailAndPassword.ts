@@ -27,7 +27,7 @@ class AuthWithEmailAndPassword extends AbstractBaseAuth {
     }
   }
 
-  private async createUser (email: string, password: string): Promise<User> {
+  public async createUser (email: string, password: string): Promise<User> {
     try {
       const { user } = await createUserWithEmailAndPassword(this.auth, email, password)
       return user;

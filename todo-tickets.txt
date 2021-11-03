@@ -11,6 +11,10 @@
 
 # DATA MODELING
 [DM-01] - add user permisions and roles
+-done- [DM-01-1] - add user populator
+[DM-01-2] - add office populator
+[DM-01-3] - add review populator
+[DM-01-4] - add survey populator
 
 // OFFICE COLLECTION
 -done- [DM-02] - add and connect to office collection
@@ -40,7 +44,7 @@
 -done- [ERR-02] create folder with custom errors and use them in existing files.
 
 # FIRESTORE FUNCTIONS 
-[FU-01] install firestore, auth, functions emulators
-[FU-02] use function emulator localy
+-done- [FU-01] install firestore, auth, functions emulators
+[FU-02] 
 
 # GENERAL 
